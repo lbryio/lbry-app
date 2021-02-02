@@ -12,6 +12,7 @@ const { insertToHead, buildBasicOgMetadata } = require('./src/html');
 const { insertVariableXml, getOpenSearchXml } = require('./src/xml');
 
 const CUSTOM_ROOT = path.resolve(__dirname, '../custom/');
+const DEFAULT_HOMEPAGES_ROOT = path.resolve(__dirname, '../homepages/');
 const STATIC_ROOT = path.resolve(__dirname, '../static/');
 const UI_ROOT = path.resolve(__dirname, '../ui/');
 const DIST_ROOT = path.resolve(__dirname, 'dist/');
@@ -142,6 +143,10 @@ const webConfig = {
       lbryinc: 'lbryinc/dist/bundle.es.js',
       electron: `${WEB_PLATFORM_ROOT}/stubs/electron.js`,
       fs: `${WEB_PLATFORM_ROOT}/stubs/fs.js`,
+      homepages:
+        process.env.CUSTOM_HOMEPAGE === 'true'
+          ? path.resolve(CUSTOM_ROOT, 'homepages/index.js')
+          : path.resolve(DEFAULT_HOMEPAGES_ROOT, 'index.js'),
     },
   },
   plugins,
